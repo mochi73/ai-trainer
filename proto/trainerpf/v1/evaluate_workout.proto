@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package trainerpf.v1;
+
+option go_package = "ai-trainer/gen/trainerpf/v1;trainerpfv1";
+
+service WorkoutService {
+    rpc EvaluateWorkout(EvaluateWorkoutRequest) returns (EvaluateWorkoutResponse);
+}
+
+message EvaluateWorkoutRequest {
+    int32 age    = 1;  // 年齢
+    float weight = 2;  // 体重（kg）
+
+    repeated Workout workouts = 3; // トレーニング内容
+}
+
+message Workout {
+    string             name = 1;  // 種目名
+    repeated SetDetail sets = 2;  // 各セットの詳細
+}
+
+message SetDetail {
+    float load = 1;  // 重量
+    int32 reps = 2;  // 回数
+}
+
+message EvaluateWorkoutResponse {
+    string advice = 1; // アドバイス
+}
